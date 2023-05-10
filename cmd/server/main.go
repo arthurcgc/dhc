@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/arthurcgc/dhc/internal/handlers"
 	"github.com/arthurcgc/dhc/internal/renderer"
@@ -9,6 +11,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
+const defaultPort = "8888"
 
 func main() {
 	// Create a new Echo instance
@@ -25,6 +28,12 @@ func main() {
 	// Serve static files
 	e.Static("/static", "static")
 
+	// Set port
+	serverPort := defaultPort
+	if newPort := os.Getenv("PORT"); newPort != "" {
+		serverPort = newPort
+	}
+
 	// Start the server
-	log.Fatal(e.Start(":8080"))
+	log.Fatal(e.Start(fmt.Sprintf(":%s", serverPort)))
 }
