@@ -15,3 +15,18 @@ func Index(c echo.Context) error {
 	}
 	return c.Render(http.StatusOK, "index.html", data)
 }
+
+func Email(c echo.Context) error {
+	type Contact struct {
+		Name string 	`json:"name"`
+		Email string 	`json:"email"`
+		Message string 	`json:"message"`
+	}
+
+	contact := Contact{}
+	if err := c.Bind(&contact); err != nil {
+		return err
+	}
+
+	return c.String(http.StatusOK, "Mensagem enviada com sucesso")
+}

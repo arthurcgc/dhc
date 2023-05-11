@@ -75,19 +75,18 @@ Seu propósito é que toda a criança participante possa ser beneficiada com aum
             <div class="right-side">
                 <div class="topic-text">Fale Conosco</div>
                 <p>Caso queira entrar em contato por favor preencha o formulário abaixo</p>
-                <form action="#">
+                <form id="email-form" action="/email" method="post">
                     <div class="input-box">
                         <input type="text" placeholder="Name" id="name">
+                        <small></small>
                     </div>
                     <div class="input-box">
-                        <input type="text" placeholder="Email" id="email">
+                        <input type="email" placeholder="Email" id="email">
                     </div>
                     <div class="input-box message-box">
                         <input type="text" id="message" placeholder="Mensagem"/>
                     </div>
-                    <div class="button">
-                        <input type="button" value="Enviar">
-                    </div>
+                    <input class="button btn btn-primary btn-xl" id="email-btn" type="submit" value="Enviar">
                 </form>
             </div>
         </div>

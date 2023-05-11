@@ -24,6 +24,7 @@ func main() {
 
 	// Register handler functions
 	e.GET("/", handlers.Index)
+	e.POST("/email", handlers.Email)
 
 	// Serve static files
 	e.Static("/static", "static")
