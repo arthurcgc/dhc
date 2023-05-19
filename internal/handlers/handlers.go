@@ -16,11 +16,12 @@ func Index(c echo.Context) error {
 	return c.Render(http.StatusOK, "index.html", data)
 }
 
+// Email handles an email request from the client.
 func Email(c echo.Context) error {
 	type Contact struct {
 		Name string 	`json:"name"`
 		Email string 	`json:"email"`
-		Message string 	`json:"message"`
+		Phone string 	`json:"phone"`
 	}
 
 	contact := Contact{}
@@ -28,5 +29,5 @@ func Email(c echo.Context) error {
 		return err
 	}
 
-	return c.String(http.StatusOK, "Mensagem enviada com sucesso")
+	return c.JSON(http.StatusOK, contact)
 }

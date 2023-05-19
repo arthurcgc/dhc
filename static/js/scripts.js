@@ -22,12 +22,8 @@ function fadeIn(el, display) {
 };
 
 window.addEventListener("load", () => {
-    function sendData(name, email, message) {
+    function sendData(name, email, phone) {
       const XHR = new XMLHttpRequest();
-
-      console.log(name)
-      console.log(email)
-      console.log(name)
 
       // Define what happens on successful data submission
       XHR.addEventListener("load", (event) => {
@@ -40,11 +36,11 @@ window.addEventListener("load", () => {
       });
   
       // Set up our request
-      XHR.open("POST", "http://localhost:8888/email");
+      XHR.open("POST", "http://" + window.location.host + "/email");
 
       XHR.setRequestHeader("Content-Type", "application/json");
 
-      XHR.send(JSON.stringify({ "email": email, "name": name, "message": message }));
+      XHR.send(JSON.stringify({ "email": email, "name": name, "phone": phone }));
     }
   
     // Get the form element
@@ -55,8 +51,8 @@ window.addEventListener("load", () => {
       event.preventDefault();
       var name = form.elements["name"].value
       var email = form.elements["email"].value;
-      var message = form.elements["message"].value;
+      var phone = form.elements["phone"].value;
 
-      sendData(name, email, message);
+      sendData(name, email, phone);
     });
   });
