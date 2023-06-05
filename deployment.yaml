@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dhc
+  namespace: puc-rio
+  labels:
+    app: dhc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dhc
+  template:
+    metadata:
+      labels:
+        app: dhc
+    spec:
+      containers:
+      - name: web
+        image: arthurcgc/dhc:latest
+        ports:
+        - containerPort: 8888
