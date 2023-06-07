@@ -12,5 +12,5 @@ run: build
 	
 .PHONY: docker-push
 docker-push: build
-	docker build -t arthurcgc/dhc:$(arch) .
+	docker buildx build --platform linux/$(arch) -t  arthurcgc/dhc:$(arch) .
 	docker push arthurcgc/dhc:$(arch)

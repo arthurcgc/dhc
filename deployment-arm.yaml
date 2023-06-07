@@ -19,7 +19,7 @@ spec:
         kubernetes.io/arch: arm64
       containers:
       - name: web
-        imagePullPolicy: Always
         image: arthurcgc/dhc:arm64
+        imagePullPolicy: Always
         ports:
         - containerPort: 8888
