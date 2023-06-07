@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/arthurcgc/dhc/internal/pkg/email"
 	echo "github.com/labstack/echo/v4"
 )
 
@@ -18,16 +19,12 @@ func Index(c echo.Context) error {
 
 // Email handles an email request from the client.
 func Email(c echo.Context) error {
-	type Contact struct {
-		Name string 	`json:"name"`
-		Email string 	`json:"email"`
-		Phone string 	`json:"phone"`
-	}
-
-	contact := Contact{}
+	contact := email.Contact{}
 	if err := c.Bind(&contact); err != nil {
 		return err
 	}
-
-	return c.JSON(http.StatusOK, contact)
+	if err := email.Send(contact); err !=nil {
+		return err
+	}
+	return c.String(http.StatusOK, "Email Sent")
 }
