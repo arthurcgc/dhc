@@ -20,5 +20,6 @@ spec:
       containers:
       - name: web
         image: arthurcgc/dhc:amd64
+        imagePullPolicy: Always
         ports:
         - containerPort: 8888

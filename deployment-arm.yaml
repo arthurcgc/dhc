@@ -4,21 +4,22 @@ metadata:
   name: dhc-arm64
   namespace: puc-rio
   labels:
-    app: dhc
+    app: dhc-arm64
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: dhc
+      app: dhc-arm64
   template:
     metadata:
       labels:
-        app: dhc
+        app: dhc-arm64
     spec:
       nodeSelector: 
         kubernetes.io/arch: arm64
       containers:
       - name: web
+        imagePullPolicy: Always
         image: arthurcgc/dhc:arm64
         ports:
         - containerPort: 8888
