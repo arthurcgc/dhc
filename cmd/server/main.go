@@ -25,6 +25,9 @@ func main() {
 	// Register handler functions
 	e.GET("/", handlers.Index)
 	e.POST("/email", handlers.Email)
+	e.GET("/healthcheck", func(c echo.Context) error {
+		return c.String(200, "up")
+	})
 
 	// Serve static files
 	e.Static("/static", "static")

@@ -21,5 +21,20 @@ spec:
       - name: web
         image: arthurcgc/dhc:arm64
         imagePullPolicy: Always
-        ports:
-        - containerPort: 8888
+        livenessProbe:
+          httpGet:
+            port: 8888
+            path: /healthcheck
+        readinessProbe:
+          httpGet:
+            port: 8888
+            path: /healthcheck
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "64Mi"
+            cpu: "250m"
+            
+
