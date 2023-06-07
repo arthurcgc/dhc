@@ -36,7 +36,7 @@ window.addEventListener("load", () => {
       });
   
       // Set up our request
-      XHR.open("POST", "http://" + window.location.host + "/email");
+      XHR.open("POST", window.location.origin + "/email");
 
       XHR.setRequestHeader("Content-Type", "application/json");
 

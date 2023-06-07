@@ -1,3 +1,9 @@
+ifeq (,$(TAG))
+	tag = latest
+else
+	tag = $(TAG)
+endif
+
 .PHONY: build
 build:
 	@if [ ! $(arch) ]; then \
@@ -12,5 +18,18 @@ run: build
 	
 .PHONY: docker-push
 docker-push: build
-	docker buildx build --platform linux/$(arch) -t  arthurcgc/dhc:$(arch) .
-	docker push arthurcgc/dhc:$(arch)
+	docker buildx build --platform linux/$(arch) -t  arthurcgc/dhc:$(tag) .
+	docker push arthurcgc/dhc:$(tag)
+
+.PHONY: deploy
+deploy-push: build
+	@if [ ! $(PROJECT_ID) ]; then \
+					echo "please set project ID; i.e: export PROJECT_ID=<projectid>"; \
+					exit 1; \
+	fi
+	@if [ ! $(REGISTRY_URL) ]; then \
+					echo "please set the registry url; i.e: export REGISTRY_URL=registry.io"; \
+					exit 1; \
+	fi
+	docker buildx build --platform linux/$(arch) -t  $(REGISTRY_URL)/$(PROJECT_ID)/arthurcgc/dhc:$(tag) .
+	docker push $(REGISTRY_URL)/$(PROJECT_ID)/arthurcgc/dhc:$(arch)
