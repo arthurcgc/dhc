@@ -1,10 +1,10 @@
 .PHONY: build
 build:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o build/server cmd/server/main.go
-
-.PHONY: build-arm
-build-arm:
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o build/server cmd/server/main.go
+	@if [ ! $(arch) ]; then \
+					echo "architecture parameter is required... use: make build arch=<adm64/arm64>"; \
+					exit 1; \
+	fi
+	CGO_ENABLED=0 GOOS=linux GOARCH=$(arch) go build -o build/server cmd/server/main.go
 
 .PHONY: run
 run: build
@@ -12,10 +12,5 @@ run: build
 	
 .PHONY: docker-push
 docker-push: build
-	docker build -t arthurcgc/dhc:latest .
-	docker push arthurcgc/dhc
-
-.PHONY: docker-push-arm64
-docker-push-arm64: build-arm
-	docker build -t arthurcgc/dhc:arm64 .
-	docker push arthurcgc/dhc:arm64
+	docker build -t arthurcgc/dhc:$(arch) .
+	docker push arthurcgc/dhc:$(arch)
